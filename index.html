@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recomendaciones Alimenticias iCare Volleyball</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1d4ed8; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        .content-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .content-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .nav-item.active { /* For desktop sidebar active state */
+            background-color: #0284c7; /* sky-600 */
+            color: white;
+            font-weight: 600;
+        }
+         /* Mobile nav active state might need specific handling if different from desktop */
+        .mobile-nav-item.active {
+            background-color: #0369a1; /* sky-700 for mobile distinction if needed */
+            color: #e0f2fe; /* sky-100 */
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-primary': '#0ea5e9', 
+                        'brand-secondary': '#14b8a6',
+                        'brand-dark': '#0369a1', 
+                        'brand-light': '#f0f9ff',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-100 text-slate-800">
+
+    <div class="min-h-screen flex flex-col md:flex-row">
+        <div class="md:hidden bg-slate-900 text-white p-4 flex justify-between items-center sticky top-0 z-50 shadow-lg">
+            <div class="text-xl font-bold">
+                🥑 <span class="text-sky-400">Nutri</span>Guía Atletas
+            </div>
+            <button id="mobileMenuButton" aria-label="Abrir menú" class="text-slate-200 hover:text-white focus:outline-none p-2">
+                <svg class="w-6 h-6" id="menuIconOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <svg class="w-6 h-6 hidden" id="menuIconClose" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <nav id="sidebarNav" class="fixed top-0 left-0 h-full w-64 bg-slate-800 text-slate-200 p-4 md:p-6 space-y-2 transform -translate-x-full md:translate-x-0 md:sticky md:top-0 md:h-screen md:overflow-y-auto transition-transform duration-300 ease-in-out z-40 shadow-lg md:shadow-none">
+            <div class="hidden md:block text-2xl font-bold text-white mb-6 pb-3 border-b border-slate-700 text-center">
+                🥑 <span class="text-sky-400">Nutri</span>Guía Atletas
+            </div>
+            <div class="md:hidden text-xl font-bold text-white mb-4 pb-2 border-b border-slate-700">
+                Menú Principal
+            </div>
+            <a href="#introduccion" class="nav-item mobile-nav-item block py-2.5 px-4 rounded hover:bg-slate-700 hover:text-white transition duration-200">Introducción</a>
+            <a href="#necesidades" class="nav-item mobile-nav-item block py-2.5 px-4 rounded hover:bg-slate-700 hover:text-white transition duration-200">Necesidades</a>
+            <a href="#alimentacion_clave" class="nav-item mobile-nav-item block py-2.5 px-4 rounded hover:bg-slate-700 hover:text-white transition duration-200">Alimentación Clave</a>
+            <a href="#energia_mental" class="nav-item mobile-nav-item block py-2.5 px-4 rounded hover:bg-slate-700 hover:text-white transition duration-200">Energía Mental</a>
+            <a href="#concentracion" class="nav-item mobile-nav-item block py-2.5 px-4 rounded hover:bg-slate-700 hover:text-white transition duration-200">Concentración</a>
+            <a href="#plan_diario" class="nav-item mobile-nav-item block py-2.5 px-4 rounded hover:bg-slate-700 hover:text-white transition duration-200">Plan Diario</a>
+            <a href="#guia_padres" class="nav-item mobile-nav-item block py-2.5 px-4 rounded hover:bg-slate-700 hover:text-white transition duration-200">Guía Padres</a>
+            <a href="#hidratacion" class="nav-item mobile-nav-item block py-2.5 px-4 rounded hover:bg-slate-700 hover:text-white transition duration-200">Hidratación</a>
+            <a href="#suplementos" class="nav-item mobile-nav-item block py-2.5 px-4 rounded hover:bg-slate-700 hover:text-white transition duration-200">Suplementos</a>
+            <a href="#conclusion" class="nav-item mobile-nav-item block py-2.5 px-4 rounded hover:bg-slate-700 hover:text-white transition duration-200">Conclusión</a>
+            <a href="#contacto" class="nav-item mobile-nav-item block py-2.5 px-4 rounded hover:bg-slate-700 hover:text-white transition duration-200">Contacto</a>
+        </nav>
+
+        <main class="flex-1 p-6 md:p-10 overflow-y-auto">
+            <div class="header bg-gradient-to-r from-sky-600 to-cyan-500 text-white p-8 rounded-xl shadow-2xl mb-12 text-center card-hover">
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">🏃‍♂️ RECOMENDACIONES ALIMENTICIAS PARA JÓVENES ATLETAS</h1>
+                <p class="text-lg md:text-xl opacity-90">Guía Nutricional Especializada para Deportistas de 9 a 13 años</p>
+            </div>
+
+            <section id="introduccion" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg mb-10 card-hover">
+                <h2 class="text-2xl md:text-3xl font-semibold text-sky-700 mb-6 border-b-2 border-sky-200 pb-3">📚 Introducción</h2>
+                <p class="mb-4">Los jóvenes atletas entre 9 y 13 años se encuentran en una etapa crucial de desarrollo físico, mental y deportivo. Durante este período, las necesidades nutricionales son significativamente mayores debido a:</p>
+                <ul class="list-disc list-inside space-y-2 mb-4 pl-5 text-slate-700">
+                    <li><strong>Crecimiento acelerado</strong> y desarrollo hormonal</li>
+                    <li><strong>Mayor demanda energética</strong> por la actividad deportiva</li>
+                    <li><strong>Desarrollo del sistema nervioso</strong> y capacidad cognitiva</li>
+                    <li><strong>Formación de hábitos alimentarios</strong> que perdurarán toda la vida</li>
+                </ul>
+                <div class="bg-sky-50 border-l-4 border-sky-500 text-sky-700 p-4 rounded-md shadow">
+                    <strong>🎯 Objetivo:</strong> Una nutrición adecuada no solo mejora el rendimiento deportivo, sino que también optimiza el desarrollo físico, mental y emocional de los jóvenes deportistas.
+                </div>
+            </section>
+
+            <section id="necesidades" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg mb-10 card-hover">
+                <h2 class="text-2xl md:text-3xl font-semibold text-sky-700 mb-6 border-b-2 border-sky-200 pb-3">⚡ Necesidades Nutricionales Especiales</h2>
+                <h3 class="text-xl font-medium text-sky-600 mt-6 mb-3">📊 Requerimientos Calóricos Diarios</h3>
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-sky-50 p-6 rounded-lg shadow card-hover">
+                        <h4 class="text-lg font-semibold text-sky-700 mb-1">Niños 9-11 años</h4>
+                        <p class="text-2xl font-bold text-sky-600">2,000-2,500 <span class="text-sm font-normal">calorías</span></p>
+                        <p class="text-sm text-slate-600">+ 300-500 calorías adicionales por entrenamiento intenso</p>
+                    </div>
+                    <div class="bg-sky-50 p-6 rounded-lg shadow card-hover">
+                        <h4 class="text-lg font-semibold text-sky-700 mb-1">Adolescentes 12-13 años</h4>
+                        <p class="text-2xl font-bold text-sky-600">2,200-2,800 <span class="text-sm font-normal">calorías</span></p>
+                        <p class="text-sm text-slate-600">+ 300-500 calorías adicionales por entrenamiento intenso</p>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-medium text-sky-600 mt-6 mb-3">🥗 Distribución de Macronutrientes</h3>
+                <ul class="list-disc list-inside space-y-2 mb-6 pl-5 text-slate-700">
+                    <li><strong>Carbohidratos:</strong> 55-60% del total calórico</li>
+                    <li><strong>Proteínas:</strong> 15-20% del total calórico</li>
+                    <li><strong>Grasas saludables:</strong> 25-30% del total calórico</li>
+                </ul>
+
+                <h3 class="text-xl font-medium text-sky-600 mt-6 mb-3">💊 Micronutrientes Críticos</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-teal-50 p-4 rounded-lg shadow text-center card-hover">
+                        <h4 class="text-lg font-semibold text-teal-700 mb-1">🩸 Hierro</h4>
+                        <p class="text-sm text-slate-600">Prevención de anemia y fatiga</p>
+                    </div>
+                    <div class="bg-teal-50 p-4 rounded-lg shadow text-center card-hover">
+                        <h4 class="text-lg font-semibold text-teal-700 mb-1">🦴 Calcio + Vitamina D</h4>
+                        <p class="text-sm text-slate-600">Desarrollo óseo y muscular</p>
+                    </div>
+                    <div class="bg-teal-50 p-4 rounded-lg shadow text-center card-hover">
+                        <h4 class="text-lg font-semibold text-teal-700 mb-1">⚡ Vitaminas B</h4>
+                        <p class="text-sm text-slate-600">Metabolismo energético</p>
+                    </div>
+                    <div class="bg-teal-50 p-4 rounded-lg shadow text-center card-hover">
+                        <h4 class="text-lg font-semibold text-teal-700 mb-1">💪 Magnesio + Zinc</h4>
+                        <p class="text-sm text-slate-600">Función muscular y crecimiento</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="alimentacion_clave" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg mb-10 card-hover">
+                <h2 class="text-2xl md:text-3xl font-semibold text-sky-700 mb-6 border-b-2 border-sky-200 pb-3">🚀 Alimentación para Mantener e Incrementar Vitalidad</h2>
+                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-green-50 p-4 rounded-lg shadow card-hover">
+                        <h4 class="text-lg font-semibold text-green-700 mb-2">🌾 Carbohidratos Complejos</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1 text-slate-600">
+                            <li>Avena integral con frutas</li><li>Quinoa cocida</li><li>Arroz integral</li><li>Pan integral</li><li>Pasta integral</li><li>Batata/camote</li><li>Plátano maduro</li>
+                        </ul>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg shadow card-hover">
+                        <h4 class="text-lg font-semibold text-red-700 mb-2">🥩 Proteínas de Alta Calidad</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1 text-slate-600">
+                            <li>Huevos enteros</li><li>Pollo sin piel</li><li>Pescados</li><li>Yogurt griego</li><li>Queso cottage</li><li>Legumbres</li><li>Frutos secos</li>
+                        </ul>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg shadow card-hover">
+                        <h4 class="text-lg font-semibold text-yellow-700 mb-2">🥑 Grasas Saludables</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1 text-slate-600">
+                            <li>Aguacate</li><li>Aceite de oliva EV</li><li>Nueces, almendras</li><li>Semillas chía, linaza</li><li>Mantequilla maní natural</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="bg-sky-50 border-l-4 border-sky-500 text-sky-800 p-4 rounded-md shadow">
+                    <strong>💡 Ejemplo de Desayuno Energético:</strong><br>
+                    Avena con plátano, nueces, miel y leche. Acompañar con huevo revuelto y jugo de naranja natural.
+                </div>
+            </section>
+
+            <section id="energia_mental" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg mb-10 card-hover">
+                <h2 class="text-2xl md:text-3xl font-semibold text-sky-700 mb-6 border-b-2 border-sky-200 pb-3">🧠 Estrategias contra la Fatiga Mental</h2>
+                <p class="mb-3">La fatiga mental en jóvenes atletas puede deberse a:</p>
+                <ul class="list-disc list-inside space-y-1 mb-4 pl-5 text-slate-700">
+                    <li>Deshidratación</li><li>Hipoglucemia</li><li>Deficiencia de Vitaminas B</li><li>Falta de Omega-3</li>
+                </ul>
+                <h3 class="text-xl font-medium text-sky-600 mt-6 mb-3">🛡️ Alimentos Anti-Fatiga Mental</h3>
+                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-indigo-50 p-4 rounded-lg shadow card-hover">
+                        <h4 class="text-lg font-semibold text-indigo-700 mb-2">📊 Estabilizadores de Glucosa</h4>
+                        <p class="text-sm text-slate-600 mb-1">Combinar carbohidratos con proteína:</p>
+                        <ul class="list-disc list-inside text-sm space-y-1 text-slate-600"><li>Manzana + mantequilla almendra</li><li>Yogurt + granola</li><li>Pan integral + huevo</li></ul>
+                    </div>
+                    <div class="bg-indigo-50 p-4 rounded-lg shadow card-hover">
+                        <h4 class="text-lg font-semibold text-indigo-700 mb-2">💊 Ricos en Vitaminas B</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1 text-slate-600"><li>Huevos</li><li>Vegetales hoja verde</li><li>Legumbres</li><li>Cereales integrales</li></ul>
+                    </div>
+                    <div class="bg-indigo-50 p-4 rounded-lg shadow card-hover">
+                        <h4 class="text-lg font-semibold text-indigo-700 mb-2">🐟 Omega-3 para el Cerebro</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1 text-slate-600"><li>Salmón, sardinas</li><li>Semillas chía</li><li>Nueces Castilla</li><li>Aceite linaza</li></ul>
+                    </div>
+                </div>
+                <div class="bg-sky-100 border-t-4 border-sky-500 text-sky-700 p-6 rounded-b-lg shadow-md">
+                    <strong class="text-lg block mb-2">⏰ Horario Anti-Fatiga:</strong>
+                    <ul class="list-none space-y-1 text-sm">
+                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-sky-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Comer cada 3-4 horas</li>
+                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-sky-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Incluir proteína en cada comida</li>
+                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-sky-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Nunca entrenar en ayunas</li>
+                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-sky-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Snack post-entrenamiento (30 min)</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="concentracion" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg mb-10 card-hover">
+                <h2 class="text-2xl md:text-3xl font-semibold text-sky-700 mb-6 border-b-2 border-sky-200 pb-3">🎯 Nutrición para Potenciar la Concentración</h2>
+                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-purple-50 p-4 rounded-lg shadow card-hover"><h4 class="text-lg font-semibold text-purple-700 mb-2">🧠 Colina</h4><ul class="list-disc list-inside text-sm space-y-1 text-slate-600"><li>Huevos</li><li>Salmón</li><li>Brócoli</li></ul></div>
+                    <div class="bg-purple-50 p-4 rounded-lg shadow card-hover"><h4 class="text-lg font-semibold text-purple-700 mb-2">🛡️ Antioxidantes</h4><ul class="list-disc list-inside text-sm space-y-1 text-slate-600"><li>Arándanos</li><li>Fresas</li><li>Chocolate negro</li><li>Té verde</li></ul></div>
+                    <div class="bg-purple-50 p-4 rounded-lg shadow card-hover"><h4 class="text-lg font-semibold text-purple-700 mb-2">⚡ Magnesio + Hierro</h4><ul class="list-disc list-inside text-sm space-y-1 text-slate-600"><li>Almendras</li><li>Espinacas</li><li>Semillas calabaza</li><li>Carne magra</li><li>Lentejas</li></ul></div>
+                </div>
+                <div class="bg-sky-50 border-l-4 border-sky-500 text-sky-800 p-4 rounded-md shadow">
+                    <strong class="text-lg">🥜 Snacks para la Concentración:</strong>
+                    <ul class="list-disc list-inside text-sm space-y-1 mt-2 pl-5"><li>Mix frutos secos y arándanos</li><li>Huevo duro + crackers integrales</li><li>Smoothie arándanos + yogurt</li><li>Chocolate negro + almendras</li></ul>
+                </div>
+            </section>
+
+            <section id="plan_diario" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg mb-10 card-hover">
+                <h2 class="text-2xl md:text-3xl font-semibold text-sky-700 mb-6 border-b-2 border-sky-200 pb-3">📅 Plan Alimentario Diario Sugerido</h2>
+                <div class="space-y-6">
+                    <div class="p-4 bg-amber-50 rounded-lg shadow card-hover"><strong class="block text-amber-700 text-lg mb-1">🌅 DESAYUNO (7-8 AM):</strong><ul class="list-disc list-inside text-sm text-slate-600 pl-5"><li>Avena + plátano + nueces</li><li>1-2 huevos revueltos</li><li>Leche / bebida vegetal</li><li>Naranja / jugo natural</li></ul></div>
+                    <div class="p-4 bg-amber-50 rounded-lg shadow card-hover"><strong class="block text-amber-700 text-lg mb-1">🥨 SNACK MATUTINO (10-10:30 AM):</strong><ul class="list-disc list-inside text-sm text-slate-600 pl-5"><li>Yogurt griego + miel + granola</li><li>Agua natural</li></ul></div>
+                    <div class="p-4 bg-amber-50 rounded-lg shadow card-hover"><strong class="block text-amber-700 text-lg mb-1">🍽️ ALMUERZO (12:30-1:30 PM):</strong><ul class="list-disc list-inside text-sm text-slate-600 pl-5"><li>Pollo plancha</li><li>Arroz integral</li><li>Ensalada mixta + aguacate</li><li>Agua frutas</li></ul></div>
+                    <div class="p-4 bg-amber-50 rounded-lg shadow card-hover"><strong class="block text-amber-700 text-lg mb-1">🏃‍♂️ PRE-ENTRENO (3:30-4 PM):</strong><ul class="list-disc list-inside text-sm text-slate-600 pl-5"><li>Plátano + mantequilla maní</li><li>Agua natural</li></ul></div>
+                    <div class="p-4 bg-amber-50 rounded-lg shadow card-hover"><strong class="block text-amber-700 text-lg mb-1">💪 POST-ENTRENO (inmediato):</strong><ul class="list-disc list-inside text-sm text-slate-600 pl-5"><li>Smoothie (leche, plátano, espinacas, miel)</li><li>Barrita granola casera</li></ul></div>
+                    <div class="p-4 bg-amber-50 rounded-lg shadow card-hover"><strong class="block text-amber-700 text-lg mb-1">🌙 CENA (7-8 PM):</strong><ul class="list-disc list-inside text-sm text-slate-600 pl-5"><li>Salmón plancha</li><li>Quinoa + vegetales</li><li>Brócoli vapor</li><li>Agua natural</li></ul></div>
+                    <div class="p-4 bg-amber-50 rounded-lg shadow card-hover"><strong class="block text-amber-700 text-lg mb-1">🥛 SNACK NOCTURNO (9 PM opc.):</strong><ul class="list-disc list-inside text-sm text-slate-600 pl-5"><li>Leche tibia + miel</li><li>Puñado almendras</li></ul></div>
+                </div>
+            </section>
+
+            <section id="guia_padres" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg mb-10 card-hover">
+                <h2 class="text-2xl md:text-3xl font-semibold text-sky-700 mb-6 border-b-2 border-sky-200 pb-3">👨‍👩‍👧‍👦 Guía para Padres de Familia</h2>
+                <h3 class="text-xl font-medium text-sky-600 mt-6 mb-4">📋 Principios Fundamentales</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-blue-50 p-4 rounded-lg shadow card-hover"><strong>📅 Planificación Semanal:</strong><ul class="list-disc list-inside text-sm space-y-1 mt-1 text-slate-600"><li>Menús semanales balanceados</li><li>Comprar frescos y de temporada</li><li>Preparar snacks saludables</li><li>Involucrar al atleta</li></ul></div>
+                    <div class="bg-blue-50 p-4 rounded-lg shadow card-hover"><strong>⚡ Estrategias Prácticas:</strong><ul class="list-disc list-inside text-sm space-y-1 mt-1 text-slate-600"><li>Loncheras nutritivas</li><li>Frutas listas</li><li>Porciones frutos secos</li><li>Agua disponible</li></ul></div>
+                    <div class="bg-blue-50 p-4 rounded-lg shadow card-hover"><strong>🎓 Educación Nutricional:</strong><ul class="list-disc list-inside text-sm space-y-1 mt-1 text-slate-600"><li>Leer etiquetas</li><li>Importancia grupos alimentarios</li><li>Fomentar variedad</li><li>Crear hábitos positivos</li></ul></div>
+                    <div class="bg-blue-50 p-4 rounded-lg shadow card-hover"><strong>🏃‍♂️ Manejo de Entrenamientos:</strong><ul class="list-disc list-inside text-sm space-y-1 mt-1 text-slate-600"><li>Comida ligera 2-3h antes</li><li>Snack 30-60min antes</li><li>Recuperación post-entreno</li><li>Cena 2h post-entreno</li></ul></div>
+                </div>
+                <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mt-6 rounded-md shadow">
+                    <strong>⚠️ Errores Comunes a Evitar:</strong>
+                    <ul class="list-disc list-inside text-sm space-y-1 mt-1 pl-5"><li>Pocas calorías</li><li>Depender de procesados</li><li>Omitir comidas/snacks</li><li>Mala hidratación</li><li>Suplementar sin supervisión</li></ul>
+                </div>
+            </section>
+
+            <section id="hidratacion" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg mb-10 card-hover">
+                <h2 class="text-2xl md:text-3xl font-semibold text-sky-700 mb-6 border-b-2 border-sky-200 pb-3">💧 Hidratación Adecuada</h2>
+                <h3 class="text-xl font-medium text-sky-600 mt-6 mb-3">📊 Requerimientos de Líquidos</h3>
+                <ul class="list-disc list-inside space-y-1 mb-4 pl-5 text-slate-700"><li><strong>Base diaria:</strong> 35-40 ml/kg peso</li><li><strong>Durante ejercicio:</strong> 150-250 ml cada 15-20 min</li><li><strong>Post-ejercicio:</strong> 150% peso perdido</li></ul>
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-cyan-50 p-4 rounded-lg shadow card-hover">
+                        <h4 class="text-lg font-semibold text-cyan-700 mb-2">💙 Mejores Opciones</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1 text-slate-600"><li>Agua natural</li><li>Agua con electrolitos (&gt;1h)</li><li>Leche chocolate (post)</li><li>Agua coco natural</li><li>Jugos diluidos</li></ul>
+                    </div>
+                    <div class="bg-orange-50 p-4 rounded-lg shadow card-hover">
+                        <h4 class="text-lg font-semibold text-orange-700 mb-2">🚨 Señales de Deshidratación</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1 text-slate-600"><li>Fatiga temprana</li><li>Dolor cabeza</li><li>Bajo rendimiento</li><li>Orina oscura</li><li>Mareos</li></ul>
+                    </div>
+                </div>
+                <div class="bg-sky-50 border-l-4 border-sky-500 text-sky-800 p-4 rounded-md shadow">
+                    <strong class="text-lg">💧 Estrategia de Hidratación Diaria:</strong>
+                    <ul class="list-disc list-inside text-sm space-y-1 mt-2 pl-5"><li><strong>Al despertar:</strong> 1-2 vasos agua</li><li><strong>30 min antes ejercicio:</strong> 300-500 ml</li><li><strong>Durante ejercicio:</strong> 150-250 ml c/15-20 min</li><li><strong>Post-ejercicio:</strong> 150% peso perdido</li></ul>
+                </div>
+            </section>
+
+            <section id="suplementos" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg mb-10 card-hover">
+                <h2 class="text-2xl md:text-3xl font-semibold text-sky-700 mb-6 border-b-2 border-sky-200 pb-3">⚕️ Suplementación y Precauciones</h2>
+                <div class="bg-lime-50 p-4 rounded-lg shadow mb-6 card-hover">
+                    <strong class="text-lime-700">✅ Suplementos Seguros (con supervisión):</strong>
+                    <ul class="list-disc list-inside text-sm space-y-1 mt-1 text-slate-600"><li>Multivitamínico niños/adolec.</li><li>Vitamina D (invierno)</li><li>Omega-3 (si no come pescado)</li><li>Probióticos</li></ul>
+                </div>
+                <div class="bg-rose-100 border-l-4 border-rose-500 text-rose-700 p-4 rounded-md shadow mb-6">
+                    <strong>🚫 IMPORTANTE - Contraindicaciones:</strong>
+                    <ul class="list-disc list-inside text-sm space-y-1 mt-1 pl-5"><li><strong>NO</strong> proteína en polvo</li><li><strong>NO</strong> bebidas energéticas</li><li><strong>NO</strong> pre-entrenos</li><li><strong>NO</strong> "quema grasa"</li><li><strong>NO</strong> automedicar vitaminas</li></ul>
+                </div>
+                <div class="bg-sky-50 border-l-4 border-sky-500 text-sky-800 p-4 rounded-md shadow">
+                    <strong>🏥 Cuándo Consultar a un Profesional:</strong>
+                    <ul class="list-disc list-inside text-sm space-y-1 mt-2 pl-5"><li>Pérdida/falta ganancia peso</li><li>Fatiga crónica</li><li>Lesiones frecuentes</li><li>Problemas digestivos</li><li>Cambios ánimo y comida</li></ul>
+                </div>
+            </section>
+
+            <section id="conclusion" class="content-section bg-gradient-to-br from-sky-700 to-cyan-600 text-white p-6 md:p-8 rounded-xl shadow-2xl mb-10 card-hover">
+                <h2 class="text-2xl md:text-3xl font-semibold mb-6 border-b-2 border-sky-400 pb-3">🎯 Conclusiones y Recomendaciones Finales</h2>
+                <h3 class="text-xl font-medium mt-6 mb-3">🔑 Principios Clave para el Éxito</h3>
+                <div class="space-y-3 text-sky-100 mb-6">
+                    <p><strong>1. VARIEDAD Y BALANCE:</strong> Incluir todos los grupos alimentarios en proporciones adecuadas.</p>
+                    <p><strong>2. TIMING NUTRICIONAL:</strong> Distribución correcta de alimentos para optimizar energía y recuperación.</p>
+                    <p><strong>3. CALIDAD SOBRE CANTIDAD:</strong> Priorizar alimentos integrales, frescos y mínimamente procesados.</p>
+                    <p><strong>4. HIDRATACIÓN CONSTANTE:</strong> Fundamental para rendimiento físico y mental.</p>
+                    <p><strong>5. EDUCACIÓN FAMILIAR:</strong> Involucrar a la familia en hábitos saludables.</p>
+                </div>
+                <h3 class="text-xl font-medium mt-6 mb-3">🚀 Impacto a Largo Plazo</h3>
+                <p class="mb-2">Una nutrición adecuada en esta etapa no solo mejora el rendimiento, sino que también:</p>
+                <ul class="list-disc list-inside space-y-1 text-sky-100 pl-5">
+                    <li>Establece hábitos saludables para toda la vida</li><li>Optimiza crecimiento y desarrollo</li><li>Mejora salud mental y emocional</li><li>Reduce riesgo de lesiones</li><li>Potencia desarrollo cognitivo</li>
+                </ul>
+                <div class="bg-sky-800 bg-opacity-50 p-4 rounded-lg mt-6 shadow-inner">
+                    <h4 class="text-lg font-semibold text-sky-200 mb-2">🎖️ Recomendación Final</h4>
+                    <p class="text-sm mb-2">Cada joven atleta es único. Las necesidades varían. Es recomendable consultar con un nutriólogo deportivo pediátrico para personalizar.</p>
+                    <p class="font-semibold text-sky-100">El objetivo: no solo atletas exitosos, sino jóvenes saludables y equilibrados con una relación positiva hacia la alimentación y el deporte.</p>
+                </div>
+            </section>
+            
+            <section id="contacto" class="content-section text-center">
+                <div class="bg-gradient-to-r from-slate-700 to-slate-800 text-slate-100 p-6 md:p-8 rounded-xl shadow-xl my-8 card-hover">
+                    <p class="text-base md:text-lg leading-relaxed">Documento creado para promover la salud y rendimiento óptimo de jóvenes atletas mediante una nutrición adecuada y general, científicamente respaldada y práctica. Para un régimen alimenticio completamente personalizado para algún atleta, favor de contactarnos directamente para poder brindar ese servicio personalizado.<br><strong class="block mt-2 text-slate-300">Atte. Cuerpo Técnico Club iCare Volleyball.</strong></p>
+                </div>
+                <div class="mt-8 card-hover">
+                    <img src="iCare Logos 2025.png" alt="Logotipo Club iCare Volleyball" class="mx-auto rounded-lg shadow-md" style="max-width: 200px;" onerror="this.onerror=null;this.src='https://placehold.co/200x200/FFFFFF/0284c7?text=iCare+Logo&font=Inter';this.alt='Logotipo iCare Volleyball';">
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('.content-section');
+            const navItems = document.querySelectorAll('.nav-item');
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const sidebarNav = document.getElementById('sidebarNav');
+            const menuIconOpen = document.getElementById('menuIconOpen');
+            const menuIconClose = document.getElementById('menuIconClose');
+
+            // Mobile menu toggle
+            if (mobileMenuButton && sidebarNav) {
+                mobileMenuButton.addEventListener('click', () => {
+                    sidebarNav.classList.toggle('-translate-x-full');
+                    sidebarNav.classList.toggle('translate-x-0'); // Ensure it's added when opening
+                    menuIconOpen.classList.toggle('hidden');
+                    menuIconClose.classList.toggle('hidden');
+                });
+            }
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.4 // Adjust threshold for when section is considered "active"
+            };
+
+            let currentActiveSectionId = null;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const navLink = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+                        entry.target.classList.add('visible');
+                        if (navLink) {
+                           // Only update if it's the topmost visible section considered active
+                           if(entry.boundingClientRect.top <= 150) { // Adjust 150px as needed (e.g. header height)
+                                if (currentActiveSectionId !== entry.target.id) {
+                                    navItems.forEach(nav => nav.classList.remove('active', 'mobile-nav-item-active'));
+                                    navLink.classList.add('active');
+                                    // If you want a different active style for mobile nav items specifically
+                                    // navLink.classList.add('mobile-nav-item-active');
+                                    currentActiveSectionId = entry.target.id;
+                                }
+                           }
+                        }
+                    } else {
+                        // entry.target.classList.remove('visible'); // Optional: fade out when scrolling away
+                        if (navLink && currentActiveSectionId === entry.target.id && entry.boundingClientRect.top > 150) {
+                            // If scrolling up and it's no longer the "topmost" active
+                            // navLink.classList.remove('active', 'mobile-nav-item-active');
+                            // currentActiveSectionId = null; // Allow recalculation
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            navItems.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Close mobile menu if open
+                        if (window.innerWidth < 768 && !sidebarNav.classList.contains('-translate-x-full')) {
+                            sidebarNav.classList.add('-translate-x-full');
+                            sidebarNav.classList.remove('translate-x-0');
+                            menuIconOpen.classList.remove('hidden');
+                            menuIconClose.classList.add('hidden');
+                        }
+                        
+                        const offset = window.innerWidth < 768 ? 70 : 20; // Offset for fixed mobile header or general padding
+                        const bodyRect = document.body.getBoundingClientRect().top;
+                        const elementRect = targetElement.getBoundingClientRect().top;
+                        const elementPosition = elementRect - bodyRect;
+                        const offsetPosition = elementPosition - offset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Manually set active class on click for immediate feedback
+                        navItems.forEach(nav => nav.classList.remove('active', 'mobile-nav-item-active'));
+                        this.classList.add('active');
+                        // this.classList.add('mobile-nav-item-active'); 
+                        currentActiveSectionId = targetId.substring(1);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
